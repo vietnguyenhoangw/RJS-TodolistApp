@@ -4,7 +4,6 @@ import "./TodoItem.css";
 
 class TodoItem extends Component {
   render() {
-
     const { item } = this.props;
 
     // using clasic way
@@ -14,10 +13,10 @@ class TodoItem extends Component {
     // }
 
     // using classnames library
-    var classNames = require('classnames');
+    var classNames = require("classnames");
     var titleClassNames = classNames({
       TodoItem: true,
-      'TodoItem-complete': item.isComplete,
+      "TodoItem-complete": item.isComplete,
     });
 
     return (
