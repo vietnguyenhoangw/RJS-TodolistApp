@@ -7,13 +7,15 @@ import TrafficLight from "./components/TrafficLight/TrafficLight";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.todoItems = [
-      { title: "Quánh golf", isComplete: true },
-      { title: "Đá bóng", isComplete: true },
-      { title: "Diễn xiếc" },
-      { title: "Coi phim" },
-    ];
-    this.state = { isActivePositions: 0 };
+    this.state = {
+      isActivePositions: 0,
+      todoItems: [
+        { id: 0, title: "Quánh golf", isComplete: false },
+        { id: 1, title: "Đá bóng", isComplete: false },
+        { id: 2, title: "Diễn xiếc", isComplete: false },
+        { id: 3, title: "Coi phim", isComplete: false },
+      ],
+    };
   }
 
   componentDidMount() {
@@ -24,17 +26,33 @@ class App extends React.Component {
             ? this.state.isActivePositions + 1
             : 0,
       });
-    }, 1000);
+    }, 100000);
   }
+
+  changeCompleteStatus = (id) => {
+    const newTodoItems = this.state.todoItems.map((item) => {
+      if (item.id === id) {
+        const editItem = { ...item, isComplete: !item.isComplete };
+        return editItem;
+      } else {
+        return item;
+      }
+    });
+    this.setState({ todoItems: newTodoItems });
+  };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {this.todoItems.length ? (
+          {this.state.todoItems.length ? (
             <div>
-              {this.todoItems.map((item, index) => (
-                <TodoItem item={item} key={index} />
+              {this.state.todoItems.map((item) => (
+                <TodoItem
+                  onPress={this.changeCompleteStatus}
+                  item={item}
+                  key={item.id}
+                />
               ))}
             </div>
           ) : (

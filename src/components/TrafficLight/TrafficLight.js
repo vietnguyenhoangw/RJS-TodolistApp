@@ -5,7 +5,6 @@ import classNames from "classnames";
 class TrafficLight extends React.Component {
   render() {
     const { isActive } = this.props;
-    console.log("TrafficLight -> render -> isActive", isActive)
 
     return (
       <div className={"traffic-light"}>

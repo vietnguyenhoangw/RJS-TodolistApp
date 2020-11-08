@@ -4,7 +4,7 @@ import "./TodoItem.css";
 
 class TodoItem extends Component {
   render() {
-    const { item } = this.props;
+    const { item, onPress } = this.props;
 
     // using clasic way
     // let className = "TodoItem";
@@ -20,7 +20,7 @@ class TodoItem extends Component {
     });
 
     return (
-      <div className={titleClassNames}>
+      <div onClick={() => onPress(item.id)} className={titleClassNames}>
         <p>{this.props.item.title}</p>
       </div>
     );
