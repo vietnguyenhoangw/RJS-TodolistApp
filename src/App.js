@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-
+import check from "./Images/check.svg";
 import TodoItem from "./components/TodoItem/TodoItem";
 import TrafficLight from "./components/TrafficLight/TrafficLight";
 
@@ -41,17 +41,34 @@ class App extends React.Component {
     this.setState({ todoItems: newTodoItems });
   };
 
+  onPressSubmitInput = (events) => {
+    // console.log(events.target.value);
+  };
+
+  onChangeText = (events) => {
+    console.log(events.target.value);
+  };
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           {this.state.todoItems.length ? (
-            <div>
+            <div className="todoBoard">
+              <div className="todoBroadHeader">
+                <img src={check} width={25} height={25} />
+                <input
+                  placeholder={"Your task you need to do"}
+                  onKeyDown={this.onPressSubmitInput}
+                  onChange={this.onChangeText}
+                />
+              </div>
               {this.state.todoItems.map((item) => (
                 <TodoItem
                   onPress={this.changeCompleteStatus}
                   item={item}
                   key={item.id}
+                  todoBoard
                 />
               ))}
             </div>

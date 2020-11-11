@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+.todoBoard {
+  width: 400px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px black;
+  margin-right: 20px;
+  background-color: #71757e;
+}
+
+
+.todoBroadHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.todoBroadHeader > input {
+  margin: 0px;
+}
+
+.todoBroadHeader > img {
+  margin: 0px;
+  margin-right: 15px;
+}
