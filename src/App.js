@@ -15,6 +15,7 @@ class App extends React.Component {
         { id: 2, title: "Diễn xiếc", isComplete: false },
         { id: 3, title: "Coi phim", isComplete: false },
       ],
+      taskInput: ''
     };
   }
 
@@ -41,13 +42,25 @@ class App extends React.Component {
     this.setState({ todoItems: newTodoItems });
   };
 
-  onPressSubmitInput = (events) => {
-    // console.log(events.target.value);
+  onPressSubmitInput = () => {
+    if (this.state.taskInput && this.state.taskInput.length > 0) {
+      console.log('>>', this.state.taskInput);
+    } else {
+      console.log('>> null kia ba');
+    }
   };
 
   onChangeText = (events) => {
-    console.log(events.target.value);
+    this.setState({taskInput: events.target.value})
   };
+
+  onClickDoneAll = () => {
+    const newTodoItems = this.state.todoItems.map((item) => {
+      const editItem = { ...item, isComplete: !item.isComplete };
+        return editItem;
+    });
+    this.setState({ todoItems: newTodoItems });
+  }
 
   render() {
     return (
@@ -56,7 +69,7 @@ class App extends React.Component {
           {this.state.todoItems.length ? (
             <div className="todoBoard">
               <div className="todoBroadHeader">
-                <img src={check} width={25} height={25} />
+                <img onClick={this.onClickDoneAll} src={check} width={25} height={25} />
                 <input
                   placeholder={"Your task you need to do"}
                   onKeyDown={this.onPressSubmitInput}
