@@ -15,7 +15,7 @@ class App extends React.Component {
         { id: 2, title: "Diễn xiếc", isComplete: false },
         { id: 3, title: "Coi phim", isComplete: false },
       ],
-      taskInput: ''
+      taskInput: "",
     };
   }
 
@@ -27,7 +27,7 @@ class App extends React.Component {
             ? this.state.isActivePositions + 1
             : 0,
       });
-    }, 100000);
+    }, 1000);
   }
 
   changeCompleteStatus = (id) => {
@@ -42,25 +42,36 @@ class App extends React.Component {
     this.setState({ todoItems: newTodoItems });
   };
 
-  onPressSubmitInput = () => {
-    if (this.state.taskInput && this.state.taskInput.length > 0) {
-      console.log('>>', this.state.taskInput);
-    } else {
-      console.log('>> null kia ba');
+  onPressSubmitInput = (e) => {
+    if (e.keyCode == 13) {
+      if (this.state.taskInput.length) {
+        const lastIdItem = this.state.todoItems[this.state.todoItems.length - 1]
+          .id;
+        const newItem = {
+          id: lastIdItem + 1,
+          title: this.state.taskInput,
+          isComplete: false,
+        };
+        const newArray = [...this.state.todoItems, newItem];
+        this.setState({ todoItems: newArray });
+        this.setState({ taskInput: "" });
+      } else {
+        console.log(">> null kia ba");
+      }
     }
   };
 
   onChangeText = (events) => {
-    this.setState({taskInput: events.target.value})
+    this.setState({ taskInput: events.target.value });
   };
 
   onClickDoneAll = () => {
     const newTodoItems = this.state.todoItems.map((item) => {
       const editItem = { ...item, isComplete: !item.isComplete };
-        return editItem;
+      return editItem;
     });
     this.setState({ todoItems: newTodoItems });
-  }
+  };
 
   render() {
     return (
@@ -68,11 +79,20 @@ class App extends React.Component {
         <header className="App-header">
           {this.state.todoItems.length ? (
             <div className="todoBoard">
+              <h3>Todo list</h3>
+              <h6>My first meet with ReactJS</h6>
               <div className="todoBroadHeader">
-                <img onClick={this.onClickDoneAll} src={check} width={25} height={25} />
+                <img
+                  onClick={this.onClickDoneAll}
+                  src={check}
+                  width={25}
+                  height={25}
+                />
                 <input
+                  value={this.state.taskInput}
+                  type="text"
                   placeholder={"Your task you need to do"}
-                  onKeyDown={this.onPressSubmitInput}
+                  onKeyUp={this.onPressSubmitInput}
                   onChange={this.onChangeText}
                 />
               </div>
