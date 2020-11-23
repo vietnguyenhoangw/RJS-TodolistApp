@@ -17,7 +17,6 @@
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -41,7 +40,7 @@
   width: 400px;
   border: 1px solid black;
   box-shadow: 5px 5px 5px black;
-  margin-right: 20px;
+  margin-right: 40px;
   background-color: #71757e;
 }
 

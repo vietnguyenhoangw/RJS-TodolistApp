@@ -1,0 +1,11 @@
+.readmoreBoard {
+    width: 1000px;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px black;
+    margin-right: 40px;
+    background-color: #71757e;
+  }
+
+p {
+    font-size: 20px;
+}
