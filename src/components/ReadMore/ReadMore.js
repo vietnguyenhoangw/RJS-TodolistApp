@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./ReadMore.css";
+import PropTypes from 'prop-types';
 
 class ReadMore extends Component {
   render() {
@@ -12,6 +13,11 @@ class ReadMore extends Component {
       </div>
     );
   }
+}
+
+ReadMore.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.string.isRequired
 }
 
 export default ReadMore;
