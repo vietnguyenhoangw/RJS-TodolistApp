@@ -1,17 +1,17 @@
 import React from "react";
 
-// tyles
-import "./App.css";
+// styles
+import "./TodoListScreen.css";
 
 // themes
-import check from "./Images/check.svg";
+import check from "../../Images/check.svg";
 
 // components
-import TodoItem from "./components/TodoItem/TodoItem";
-import TrafficLight from "./components/TrafficLight/TrafficLight";
-import ReadMore from "./components/ReadMore/ReadMore";
+import TodoItem from "../../components/TodoItem/TodoItem";
+import TrafficLight from "../../components/TrafficLight/TrafficLight";
+import ReadMore from "../../components/ReadMore/ReadMore";
 
-class App extends React.Component {
+class TodoListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -123,7 +123,21 @@ class App extends React.Component {
           ) : (
             <div>Nothing here</div>
           )}
+        </header>
+
+        {/* content 2 */}
+        <header className="App-header">
+          <ReadMore title="Read more">
+            {
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+            }
+          </ReadMore>
+        </header>
+
+        {/* content 3 */}
+        <header className="App-header">
           <div>
+            <h3>Click this bellow arrow to see traffic light</h3>
             <div onClick={this.onDisplayTrafficLight}>
               {this.state.displayTrafficLight ? (
                 <img
@@ -142,18 +156,9 @@ class App extends React.Component {
             )}
           </div>
         </header>
-
-        {/* content 2 */}
-        <header className="App-header">
-          <ReadMore title="Read more">
-            {
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
-            }
-          </ReadMore>
-        </header>
       </div>
     );
   }
 }
 
-export default App;
+export default TodoListScreen;
