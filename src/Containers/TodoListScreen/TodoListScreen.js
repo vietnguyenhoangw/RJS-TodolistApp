@@ -11,57 +11,31 @@ import TodoItem from "../../components/TodoItem/TodoItem";
 import TrafficLight from "../../components/TrafficLight/TrafficLight";
 import ReadMore from "../../components/ReadMore/ReadMore";
 
+// redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as TodoActions from "../../Redux/actions/TodoListActions";
+
 class TodoListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isActivePositions: 0,
-      todoItems: [
-        { id: 0, title: "Quánh golf", isComplete: false },
-        { id: 1, title: "Đá bóng", isComplete: false },
-        { id: 2, title: "Diễn xiếc", isComplete: false },
-        { id: 3, title: "Coi phim", isComplete: false },
-      ],
       taskInput: "",
       displayTrafficLight: false,
     };
   }
 
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        isActivePositions:
-          this.state.isActivePositions < 2
-            ? this.state.isActivePositions + 1
-            : 0,
-      });
-    }, 1000);
-  }
+  changeCompleteStatus = (id) => {};
 
-  changeCompleteStatus = (id) => {
-    const newTodoItems = this.state.todoItems.map((item) => {
-      if (item.id === id) {
-        const editItem = { ...item, isComplete: !item.isComplete };
-        return editItem;
-      } else {
-        return item;
-      }
-    });
-    this.setState({ todoItems: newTodoItems });
-  };
-
-  onPressSubmitInput = (e) => {
+  onPressSubmitInput = (e, actions) => {
     if (e.keyCode == 13) {
       if (this.state.taskInput.length) {
-        const lastIdItem = this.state.todoItems[this.state.todoItems.length - 1]
-          .id;
         const newItem = {
-          id: lastIdItem + 1,
+          id: new Date().getMilliseconds(),
           title: this.state.taskInput,
           isComplete: false,
         };
-        const newArray = [...this.state.todoItems, newItem];
-        this.setState({ todoItems: newArray });
+        actions.addTaks(newItem);
         this.setState({ taskInput: "" });
       } else {
         console.log(">> null kia ba");
@@ -73,13 +47,7 @@ class TodoListScreen extends React.Component {
     this.setState({ taskInput: events.target.value });
   };
 
-  onClickDoneAll = () => {
-    const newTodoItems = this.state.todoItems.map((item) => {
-      const editItem = { ...item, isComplete: !item.isComplete };
-      return editItem;
-    });
-    this.setState({ todoItems: newTodoItems });
-  };
+  onClickDoneAll = () => {};
 
   onDisplayTrafficLight = () => {
     this.setState({
@@ -87,12 +55,25 @@ class TodoListScreen extends React.Component {
     });
   };
 
+  displayListTodo = (todos) => {
+    return todos.todoList.map((item) => (
+      <TodoItem
+        onPress={this.changeCompleteStatus}
+        item={item}
+        key={item.id}
+        todoBoard
+      />
+    ));
+  };
+
   render() {
+    const { actions, todos } = this.props;
+
     return (
       <div className="App">
         {/* content 1 */}
         <header className="App-header">
-          {this.state.todoItems.length ? (
+          {todos.todoList.length ? (
             <div className="todoBoard">
               <h3>Todo list</h3>
               <h6>My first meet with ReactJS</h6>
@@ -107,18 +88,11 @@ class TodoListScreen extends React.Component {
                   value={this.state.taskInput}
                   type="text"
                   placeholder={"Your task you need to do"}
-                  onKeyUp={this.onPressSubmitInput}
+                  onKeyUp={(e) => this.onPressSubmitInput(e, actions)}
                   onChange={this.onChangeText}
                 />
               </div>
-              {this.state.todoItems.map((item) => (
-                <TodoItem
-                  onPress={this.changeCompleteStatus}
-                  item={item}
-                  key={item.id}
-                  todoBoard
-                />
-              ))}
+              {this.displayListTodo(todos)}
             </div>
           ) : (
             <div>Nothing here</div>
@@ -159,7 +133,7 @@ class TodoListScreen extends React.Component {
                   display: "flex",
                 }}
               >
-                <TrafficLight isActive={this.state.isActivePositions} />
+                <p>That's cu lua ^^</p>
               </div>
             )}
           </div>
@@ -169,4 +143,16 @@ class TodoListScreen extends React.Component {
   }
 }
 
-export default TodoListScreen;
+function mapStateToProps(state) {
+  return {
+    todos: state.todoListReducers,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(TodoActions, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListScreen);
