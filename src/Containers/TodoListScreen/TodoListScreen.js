@@ -152,7 +152,15 @@ class TodoListScreen extends React.Component {
               )}
             </div>
             {this.state.displayTrafficLight && (
-              <TrafficLight isActive={this.state.isActivePositions} />
+              <div
+                style={{
+                  width: 700,
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <TrafficLight isActive={this.state.isActivePositions} />
+              </div>
             )}
           </div>
         </header>
