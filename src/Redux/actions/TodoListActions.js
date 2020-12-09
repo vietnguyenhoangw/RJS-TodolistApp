@@ -12,3 +12,10 @@ export function checkTask(task) {
     task: task,
   };
 }
+
+export function checkAllTask(task) {
+  return {
+    type: "CHECK_ALL_TASK",
+    task: task,
+  };
+}

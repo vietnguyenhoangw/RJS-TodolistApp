@@ -21,7 +21,7 @@ class TodoItem extends Component {
     });
 
     return (
-      <div onClick={() => onPress(item.id)} className={titleClassNames}>
+      <div onClick={() => onPress(item)} className={titleClassNames}>
         <img src={item.isComplete ? check : uncheck} width={25} height={25}/>
         <p>{this.props.item.title}</p>
       </div>

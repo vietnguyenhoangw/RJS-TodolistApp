@@ -7,9 +7,8 @@ import "./TodoListScreen.css";
 import check from "../../Images/check.svg";
 
 // components
-import TodoItem from "../../components/TodoItem/TodoItem";
-import TrafficLight from "../../components/TrafficLight/TrafficLight";
-import ReadMore from "../../components/ReadMore/ReadMore";
+import TodoItem from "../../Components/TodoItem/TodoItem";
+import ReadMore from "../../Components/ReadMore/ReadMore";
 
 // redux
 import { connect } from "react-redux";
@@ -25,7 +24,9 @@ class TodoListScreen extends React.Component {
     };
   }
 
-  changeCompleteStatus = (id) => {};
+  changeCompleteStatus = (item, actions) => {
+    actions.checkTask(item)
+  };
 
   onPressSubmitInput = (e, actions) => {
     if (e.keyCode == 13) {
@@ -47,7 +48,9 @@ class TodoListScreen extends React.Component {
     this.setState({ taskInput: events.target.value });
   };
 
-  onClickDoneAll = () => {};
+  onClickDoneAll = (item, actions) => {
+    actions.checkAllTask(item)
+  };
 
   onDisplayTrafficLight = () => {
     this.setState({
@@ -55,10 +58,10 @@ class TodoListScreen extends React.Component {
     });
   };
 
-  displayListTodo = (todos) => {
+  displayListTodo = (todos, actions) => {
     return todos.todoList.map((item) => (
       <TodoItem
-        onPress={this.changeCompleteStatus}
+        onPress={(item) => this.changeCompleteStatus(item, actions)}
         item={item}
         key={item.id}
         todoBoard
@@ -79,7 +82,7 @@ class TodoListScreen extends React.Component {
               <h6>My first meet with ReactJS</h6>
               <div className="todoBroadHeader">
                 <img
-                  onClick={this.onClickDoneAll}
+                  onClick={(item) => this.onClickDoneAll(item, actions)}
                   src={check}
                   width={25}
                   height={25}
@@ -92,7 +95,7 @@ class TodoListScreen extends React.Component {
                   onChange={this.onChangeText}
                 />
               </div>
-              {this.displayListTodo(todos)}
+              {this.displayListTodo(todos, actions)}
             </div>
           ) : (
             <div>Nothing here</div>
