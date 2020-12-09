@@ -18,7 +18,6 @@ export default function todoListReducers(state = initialState, action) {
           }
         }
       );
-      console.log("🚀 ~ file: TodoListReducer.js ~ line 17 ~ todoListReducers ~ changeTaskStatus", ...changeTaskStatus)
       const newCheckTaskList = [...state.todoList].map((x) => {
         if (x.id !== action.task.id) {
           return x;
